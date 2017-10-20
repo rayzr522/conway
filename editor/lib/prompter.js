@@ -9,10 +9,10 @@ function prompter(stateMachine, callback, options = {}) {
 
     return {
         name: `__PROMPT__${prompt}`,
-        onLeave: function () {
+        onLeave() {
             stateMachine.removeView(this)
         },
-        onKeyDown: function (key) {
+        onKeyDown(key) {
             errorMessage = '';
             if (key === keys.delete) {
                 input = input.slice(0, -1);
@@ -36,7 +36,7 @@ function prompter(stateMachine, callback, options = {}) {
                 input += key;
             }
         },
-        render: function () {
+        render() {
             const { midX, midY } = screen;
 
             let combined = prompt + input.slice(prompt.length - width + 1).replace(/\s/g, '_' /* preserve underline */);

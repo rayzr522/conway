@@ -11,13 +11,13 @@ const screen = {
     alignCenter: 1,
     alignRight: 2,
     // Printing
-    print: function (text) {
+    print(text) {
         process.stdout.write(text);
     },
-    println: function (text) {
+    println(text) {
         screen.print(text + '\n');
     },
-    text: function (text, x, y, align = 0) {
+    text(text, x, y, align = 0) {
         var rt = text;
         var w = rt.length;
 
@@ -42,7 +42,7 @@ const screen = {
     showCursor: () => ansi('?25h'),
     // Clearing
     clearLine: () => ansi('2K'),
-    clear: function () {
+    clear() {
         for (let y = 0; y < screen.height; y++) {
             screen.cursor(0, y);
             screen.clearLine();

@@ -17,7 +17,7 @@ const editor = {
     file: '',
     lines: [],
     name: 'editor',
-    load: function () {
+    load() {
         this.lines = fs.readFileSync(this.file)
             .toString()
             .split('\n')
@@ -44,18 +44,18 @@ const editor = {
 
         this.cursor = { x: 0, y: 0 };
     },
-    save: function () {
+    save() {
         this.statusMessage = `Saved to '${this.file}'`;
         fs.writeFileSync(this.file, this.lines.map(line => line.join(' ')).join('\n'));
     },
-    get: function (x, y) {
+    get(x, y) {
         if (x < 0 || x >= this.width || y < 0 || y >= this.height) {
             return -1;
         }
 
         return this.lines[y][x];
     },
-    set: function (x, y, value) {
+    set(x, y, value) {
         if (x < 0 || x >= this.width || y < 0 || y >= this.height) {
             return -1;
         }
@@ -63,11 +63,11 @@ const editor = {
         this.dirty = true;
         return this.lines[y][x] = value;
     },
-    moveCursor: function (dx, dy) {
+    moveCursor(dx, dy) {
         this.cursor.x = math.clamp(this.cursor.x + dx, 0, this.width - 1);
         this.cursor.y = math.clamp(this.cursor.y + dy, 0, this.height - 1);
     },
-    onKeyDown: function (key) {
+    onKeyDown(key) {
         this.statusMessage = '';
 
         if (key === keys.upArrow) {
@@ -89,17 +89,17 @@ const editor = {
             state.changeView('main');
         }
     },
-    onEnter: function () {
+    onEnter() {
         if (!this.file || !fs.existsSync(this.file)) {
             return state.changeView('main');
         }
 
         this.load();
     },
-    onLeave: function () {
+    onLeave() {
         this.save();
     },
-    render: function () {
+    render() {
         const { midX, midY } = screen;
         const start = { x: midX - this.halfWidth, y: midY - this.halfHeight };
 
@@ -124,13 +124,13 @@ state.addView(editor);
 
 state.addView({
     name: 'main',
-    onEnter: function () {
+    onEnter() {
         this.buttons = ['New', 'Edit', 'Quit'];
         this.selected = 0;
         screen.hideCursor();
     },
     onLeave: () => screen.showCursor(),
-    onKeyDown: function (key) {
+    onKeyDown(key) {
         if (key === keys.downArrow) {
             this.selected = (this.selected + 1) % this.buttons.length;
         } else if (key === keys.upArrow) {
@@ -194,7 +194,7 @@ state.addView({
             }
         }
     },
-    render: function () {
+    render() {
         const { midX, midY } = screen;
 
         screen.text(`CONWAY'S GAME OF LIFE || EDITOR`, midX, midY - 5, screen.alignCenter);
