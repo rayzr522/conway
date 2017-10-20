@@ -58,7 +58,6 @@ class StateMachine {
     }
 
     render() {
-        screen.clear();
         return tryCall(this.current, 'render');
     }
 

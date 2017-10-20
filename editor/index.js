@@ -11,6 +11,7 @@ const state = new StateMachine();
 const loop = new Loop(60 /*FPS*/, () => {
     tick();
     render();
+    screen.draw();
 });
 
 const editor = {
@@ -113,10 +114,10 @@ const editor = {
         }
 
         if (this.statusMessage) {
-            screen.text(this.statusMessage, screen.width, screen.height, screen.alignRight);
+            screen.text(this.statusMessage, screen.width, screen.height - 1, screen.alignRight);
         }
 
-        screen.cursor(start.x + this.cursor.x * 2, start.y + this.cursor.y);
+        screen.termCursor(start.x + this.cursor.x * 2, start.y + this.cursor.y);
     }
 }
 
