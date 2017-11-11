@@ -1,6 +1,8 @@
 # conway
 > An implementation of Conway's Game of Life with two modes, interactive controls, custom scenarios, and a scenario editor, all written in pure Node.JS with zero external dependencies
 
+![Demo GIF](res/demo.gif)
+
 ## Installation
 Just clone the repository
 
